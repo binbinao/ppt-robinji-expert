@@ -53,5 +53,10 @@ coverage/
 *.seed
 *.pid.lock
 
-# CodeBuddy
-.codebuddy/
+# CodeBuddy - keep skills/ tracked but exclude plans/cache
+.codebuddy/plans/
+.codebuddy/cache/
+.codebuddy/logs/
+.codebuddy/*.log
+# Allow skills/ to be tracked
+!.codebuddy/skills/

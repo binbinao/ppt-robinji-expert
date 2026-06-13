@@ -1,0 +1,74 @@
+/**
+ * 商务风模板 - 专业、稳重、适合企业汇报
+ */
+
+import type { Template } from './types.js';
+
+export const businessTemplates: Template[] = [
+  {
+    id: 'business-classic',
+    name: '商务经典',
+    description: '稳重专业的企业汇报风格，深蓝色调适合商务场景',
+    category: 'business',
+    emoji: '💼',
+    palette: {
+      primary: '1E2761',
+      secondary: 'CADCFC',
+      accent: 'FFFFFF',
+      text: 'FFFFFF',
+      textSecondary: 'E0E5F0',
+      background: '1E2761',
+      surface: 'F5F7FA',
+      border: 'D0D5DD'
+    },
+    fonts: {
+      title: 'Microsoft YaHei',
+      body: 'Microsoft YaHei',
+      mono: 'Consolas',
+      titleSize: 32,
+      bodySize: 18,
+      captionSize: 12
+    },
+    decoration: {
+      hasGradient: false,
+      hasPattern: false,
+      hasShadow: true,
+      cornerRadius: 4,
+      titleStyle: 'classic',
+      contentStyle: 'bullet'
+    }
+  },
+  {
+    id: 'business-elegant',
+    name: '商务雅致',
+    description: '低饱和度灰色调，极简中带优雅，适合高端商务',
+    category: 'business',
+    emoji: '🎩',
+    palette: {
+      primary: '2C3E50',
+      secondary: '95A5A6',
+      accent: 'E74C3C',
+      text: 'FFFFFF',
+      textSecondary: 'BDC3C7',
+      background: '2C3E50',
+      surface: 'ECF0F1',
+      border: 'BDC3C7'
+    },
+    fonts: {
+      title: 'SimSun',
+      body: 'Microsoft YaHei',
+      mono: 'Consolas',
+      titleSize: 30,
+      bodySize: 17,
+      captionSize: 12
+    },
+    decoration: {
+      hasGradient: true,
+      hasPattern: false,
+      hasShadow: true,
+      cornerRadius: 6,
+      titleStyle: 'elegant',
+      contentStyle: 'card'
+    }
+  }
+];
