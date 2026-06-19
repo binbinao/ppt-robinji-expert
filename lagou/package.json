@@ -1,0 +1,23 @@
+{
+  "name": "opencli-plugin-lagou",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "拉勾招聘平台适配器 - 支持职位搜索、详情查看、公司信息",
+  "scripts": {
+    "opencli": "opencli"
+  },
+  "keywords": [
+    "opencli",
+    "opencli-plugin",
+    "lagou",
+    "拉勾",
+    "jobs",
+    "recruitment",
+    "tech-jobs"
+  ],
+  "author": "job-search-skill",
+  "license": "MIT",
+  "peerDependencies": {
+    "@jackwener/opencli": ">=1.8.3"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "opencli-maimai",
+  "version": "1.0.0",
+  "description": "脉脉人才搜索 CLI - 基于 opencli 让 Claude Code 可以直接搜索脉脉候选人",
+  "main": "maimai/search-talents.yaml",
+  "scripts": {
+    "install": "bash scripts/install.sh",
+    "publish": "bash scripts/publish.sh"
+  },
+  "keywords": [
+    "opencli",
+    "maimai",
+    "脉脉",
+    "claude-code",
+    "skill",
+    "recruiting",
+    "talent-search"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_USERNAME/opencli-maimai.git"
+  }
+}

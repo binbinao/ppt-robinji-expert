@@ -16,6 +16,7 @@ interface Options {
   output?: string;
   style?: string;
   palette?: string;
+  from?: string;
 }
 
 async function main() {
@@ -27,6 +28,7 @@ async function main() {
       output: { type: 'string', short: 'o' },
       style: { type: 'string', short: 'st' },
       palette: { type: 'string', short: 'pl' },
+      from: { type: 'string', short: 'f' },
       help: { type: 'boolean', short: 'h' }
     }
   });
@@ -46,11 +48,13 @@ ppt-robinji - AI生成PPT
   -o, --output <路径>    输出文件路径
   -st, --style <风格>    风格（professional/creative/minimal）
   -pl, --palette <配色>  配色方案
+  -f, --from <文件>      源文档（PDF/DOCX/Markdown/TXT）
   -h, --help             显示帮助
 
 示例:
   npm run generate -- --topic "人工智能在教育中的应用" --slides 10
   npm run generate -- -t "产品发布会" -o ./my-presentation.pptx -pl ocean-gradient
+  npm run generate -- -t "季度报告" -f ./report.pdf -o q1.pptx
 `);
     process.exit(options.help ? 0 : 1);
   }
@@ -64,8 +68,11 @@ ppt-robinji - AI生成PPT
 
   try {
     console.log(`🎨 Generating PPT for: ${options.topic}`);
-    console.log(`📊 Slides: ${options.slides || 8}`);
+    console.log(`📊 Slides: ${options.slides || (options.from ? '(auto)' : 8)}`);
     console.log(`🎭 Style: ${options.style || 'professional'}`);
+    if (options.from) {
+      console.log(`📄 Source: ${options.from}`);
+    }
 
     const result = await generatePPT({
       topic: options.topic,
@@ -73,7 +80,8 @@ ppt-robinji - AI生成PPT
       provider: options.provider,
       outputPath: outputPath,
       style: options.style as any,
-      palette: options.palette
+      palette: options.palette,
+      from: options.from
     });
 
     console.log(`✅ PPT generated successfully: ${result}`);

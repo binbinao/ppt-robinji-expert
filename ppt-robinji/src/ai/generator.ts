@@ -62,6 +62,11 @@ export interface GenerateOptions {
   structure?: 'ted' | 'pitch' | 'launch' | 'tutorial' | 'report';
   audience?: string;
   duration?: number;
+  /**
+   * 源文档内容（来自 SourceParser.parse()）。
+   * 传入后将作为生成大纲的素材。
+   */
+  sourceContent?: import('../source/index.js').SourceContent;
 }
 
 export class AIGenerator {
@@ -137,6 +142,15 @@ export class AIGenerator {
 
     const structureGuide = this.getStructureGuide(structure, slideCount);
 
+    // 如果提供了源文档内容，注入到 prompt
+    let sourceBlock = '';
+    if (options.sourceContent) {
+      // 动态 import 避免循环依赖
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const { sourceToPromptText } = require('../source/to-prompt.js') as typeof import('../source/to-prompt.js');
+      sourceBlock = `\n\n# Source Material\n\nThe following document should be summarized into a presentation:\n\n${sourceToPromptText(options.sourceContent)}`;
+    }
+
     return `${SPEECH_PROMPT_PREFIX}
 
 Topic: ${options.topic}
@@ -144,6 +158,7 @@ Slides: ${slideCount} (target duration: ${duration} min)
 Style: ${style}
 Audience: ${audience}
 Structure: ${structure}
+${sourceBlock}
 
 ${structureGuide}
 
