@@ -87,6 +87,7 @@
     "test:e2e": "tsx scripts/test-e2e-v2.ts",
     "test:a11y": "tsx scripts/check-a11y.ts",
     "test:source": "tsx scripts/test-source.ts",
+    "test:animation": "tsx scripts/test-animation.ts",
     "demo": "tsx scripts/final-demo.ts",
     "prepublishOnly": "npm run build"
   },

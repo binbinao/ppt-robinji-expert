@@ -52,6 +52,10 @@ export interface SlideContent {
   imageUrl?: string;
   imagePosition?: 'left' | 'right' | 'top' | 'bottom';
   imageSource?: 'search' | 'generate' | 'random';
+  /** 幻灯片过渡效果（PowerPoint Animation） */
+  transition?: import('../../pptx/animation/types.js').TransitionOptions;
+  /** 形状入场动画列表 */
+  shapeAnimations?: import('../../pptx/animation/types.js').ShapeAnimation[];
 }
 
 export interface GenerateOptions {
