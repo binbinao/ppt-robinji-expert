@@ -34,6 +34,16 @@ export interface CreatorOptions {
 export class PPTCreator {
   private pres: any;  // pptxgenjs shapes/charts 字段在类型定义中不可见
   private template: Template;
+  /** 每张幻灯片的动画配置（与 slides 数组顺序对应） */
+  private slideAnimationConfigs: Array<{
+    transition?: any;
+    shapeAnimations?: any[];
+    slideType?: string;
+  }> = [];
+  /** 是否在 save 时应用动画后处理 */
+  private enableAnimations: boolean = true;
+  /** 收集到的所有 slide types（用于 auto transition） */
+  private slideTypes: string[] = [];
 
   constructor(options: CreatorOptions = {}) {
     this.pres = new PptxGenJS();
@@ -76,12 +86,22 @@ export class PPTCreator {
 
     // 封面页
     this.createTitleSlide(content);
+    this.slideAnimationConfigs.push({ slideType: 'cover' });
+    this.slideTypes.push('cover');
 
     // 内容页 - 按类型分发
     for (let i = 0; i < content.slides.length; i++) {
       const slide = content.slides[i];
       const pageNum = i + 1;
       const totalPages = content.slides.length;
+
+      // 收集动画配置
+      this.slideAnimationConfigs.push({
+        transition: (slide as any).transition,
+        shapeAnimations: (slide as any).shapeAnimations,
+        slideType: slide.type,
+      });
+      this.slideTypes.push(slide.type);
 
       switch (slide.type) {
         case 'cover':
@@ -971,6 +991,20 @@ export class PPTCreator {
 
   async save(filePath: string): Promise<void> {
     await this.pres.writeFile({ fileName: filePath });
+    // 应用动画后处理
+    if (this.enableAnimations && this.slideAnimationConfigs.length > 0) {
+      try {
+        const { AnimationManager } = await import('./animation/manager.js');
+        const mgr = new AnimationManager();
+        const animated = await mgr.applyAnimations(filePath, this.slideAnimationConfigs);
+        // 用动画版本覆盖原文件
+        const { copyFile, unlink } = await import('fs/promises');
+        await copyFile(animated, filePath);
+        await unlink(animated);
+      } catch (err) {
+        console.warn('Animation post-processing failed (non-fatal):', (err as Error).message);
+      }
+    }
   }
 
   getPresentation(): PptxGenJS {
