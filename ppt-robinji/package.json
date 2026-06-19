@@ -92,6 +92,7 @@
     "test:e2e-animation": "tsx scripts/test-e2e-animation.ts",
     "test:source-integration": "tsx scripts/test-source-integration.ts",
     "test:p0-integration": "tsx scripts/test-p0-integration.ts",
+    "test:tts": "tsx scripts/test-tts.ts",
     "demo": "tsx scripts/final-demo.ts",
     "prepublishOnly": "npm run build"
   },
@@ -124,7 +125,8 @@
     "mammoth": "^1.8.0"
   },
   "optionalDependencies": {
-    "marked": "^12.0.0"
+    "marked": "^12.0.0",
+    "node-edge-tts": "^1.2.10"
   },
   "peerDependencies": {
     "tsx": "^4.0.0"
