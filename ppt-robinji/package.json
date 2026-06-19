@@ -88,6 +88,10 @@
     "test:a11y": "tsx scripts/check-a11y.ts",
     "test:source": "tsx scripts/test-source.ts",
     "test:animation": "tsx scripts/test-animation.ts",
+    "test:native": "tsx scripts/test-native.ts",
+    "test:e2e-animation": "tsx scripts/test-e2e-animation.ts",
+    "test:source-integration": "tsx scripts/test-source-integration.ts",
+    "test:p0-integration": "tsx scripts/test-p0-integration.ts",
     "demo": "tsx scripts/final-demo.ts",
     "prepublishOnly": "npm run build"
   },
