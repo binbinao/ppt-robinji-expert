@@ -93,6 +93,7 @@
     "test:source-integration": "tsx scripts/test-source-integration.ts",
     "test:p0-integration": "tsx scripts/test-p0-integration.ts",
     "test:tts": "tsx scripts/test-tts.ts",
+    "test:a11y-v2": "tsx scripts/test-a11y.ts",
     "demo": "tsx scripts/final-demo.ts",
     "prepublishOnly": "npm run build"
   },
