@@ -14,6 +14,11 @@ export interface GeneratePPTOptions {
   provider?: string;
   outputPath?: string;
   palette?: string;
+  /**
+   * 从源文档生成（PDF/DOCX/Markdown/TXT）。
+   * 传入文件路径，自动解析并注入 AI 提示。
+   */
+  from?: string;
 }
 
 export interface ConvertOptions {
@@ -41,12 +46,31 @@ export class PPTRobinji {
   async generatePPT(options: GeneratePPTOptions): Promise<string> {
     logger.info(`Generating PPT for topic: ${options.topic}`);
 
+    // 0. 如果指定了源文档，先解析
+    let sourceContent: any | undefined;
+    if (options.from) {
+      const { parseSourceFile, estimateSlideCount } = await import('./source/index.js');
+      logger.info(`Parsing source file: ${options.from}`);
+      sourceContent = await parseSourceFile(options.from);
+      logger.info(
+        `Source parsed: ${sourceContent.sourceType}, ` +
+        `${sourceContent.sections?.length || 0} sections, ` +
+        `${sourceContent.text.length} chars`
+      );
+      // 如果未指定 slides 数，根据源文档自动估算
+      if (!options.slides) {
+        options.slides = estimateSlideCount(sourceContent);
+        logger.info(`Auto-estimated ${options.slides} slides from source`);
+      }
+    }
+
     // 1. 使用AI生成内容大纲
     const content = await this.generator.generateOutline({
       topic: options.topic,
       slides: options.slides,
-      style: options.style
-    });
+      style: options.style,
+      sourceContent
+    } as any);
 
     logger.info(`Generated outline with ${content.slides.length} slides`);
 

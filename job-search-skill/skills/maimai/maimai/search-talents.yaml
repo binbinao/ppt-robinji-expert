@@ -1,0 +1,198 @@
+site: maimai
+name: search-talents
+description: 脉脉人才搜索 - 搜索脉脉上的候选人简历，支持多维度筛选
+domain: maimai.cn
+strategy: auth
+browser: true
+
+args:
+  query:
+    type: string
+    required: true
+    description: 搜索关键词（如 "java"、"产品经理"）
+  page:
+    type: int
+    default: 0
+    description: 页码（从 0 开始）
+  size:
+    type: int
+    default: 20
+    description: 每页结果数量
+  positions:
+    type: string
+    description: 职位（如 "运营"、"Java 开发工程师"）
+  companies:
+    type: string
+    description: 公司（如 "百度"、"字节跳动"），多个用逗号分隔
+  schools:
+    type: string
+    description: 学校（如 "北京大学"、"清华大学"），多个用逗号分隔
+  provinces:
+    type: string
+    description: 省份（如 "北京"、"上海"）
+  cities:
+    type: string
+    description: 城市（如 "北京市"、"上海市"）
+  worktimes:
+    type: string
+    description: 工作年限（1=1-3 年，2=3-5 年，3=5-10 年，4=10 年以上）
+  degrees:
+    type: string
+    description: 学历（1=大专，2=本科，3=硕士，4=博士，5=MBA）
+  professions:
+    type: string
+    description: 行业（01=互联网，02=金融，03=电子，04=通信等）
+  is_211:
+    type: int
+    description: 是否 211 院校（0=不限，1=211）
+  is_985:
+    type: int
+    description: 是否 985 院校（0=不限，1=985）
+  sortby:
+    type: int
+    default: 0
+    description: 排序（0=相关度，1=活跃度，2=工作年限，3=学历）
+  is_direct_chat:
+    type: int
+    default: 0
+    description: 是否直聊（0=不限，1=可直聊）
+
+pipeline:
+  - navigate: https://maimai.cn/ent/talents/discover/search_v2
+
+  - wait: 5000
+
+  - evaluate: |
+      (async () => {
+        const query = '${{ args.query || "" }}';
+        const page = ${{ args.page || 0 }};
+        const size = ${{ args.size || 20 }};
+        const positions = '${{ args.positions || "" }}';
+        const companies = '${{ args.companies || "" }}';
+        const schools = '${{ args.schools || "" }}';
+        const provinces = '${{ args.provinces || "" }}';
+        const cities = '${{ args.cities || "" }}';
+        const worktimes = '${{ args.worktimes || "" }}';
+        const degrees = '${{ args.degrees || "" }}';
+        const professions = '${{ args.professions || "" }}';
+        const is_211 = ${{ args.is_211 || 0 }};
+        const is_985 = ${{ args.is_985 || 0 }};
+        const sortby = ${{ args.sortby || 0 }};
+        const is_direct_chat = ${{ args.is_direct_chat || 0 }};
+
+        // 生成随机 sessionid
+        const sessionid = 'b92d0fb5-f3fd-1f4b-fcdc-' + Math.random().toString(16).slice(2, 14);
+        const deletesessionid = 'ae907d75-315c-8db7-2cc7-' + Math.random().toString(16).slice(2, 14);
+
+        const requestBody = {
+          search: {
+            page: page,
+            size: size,
+            sessionid: sessionid,
+            deletesessionid: deletesessionid,
+            worktimes: worktimes,
+            degrees: degrees,
+            professions: professions,
+            schools: schools,
+            positions: positions,
+            companyscope: 0,
+            sortby: sortby,
+            is_direct_chat: is_direct_chat,
+            query: query,
+            cities: cities,
+            provinces: provinces,
+            is_211: is_211,
+            is_985: is_985,
+            allcompanies: companies
+          }
+        };
+
+        // 获取 CSRF token（从 cookie 或 meta 标签）
+        let csrftoken = document.cookie.split('; ')
+          .find(row => row.startsWith('csrftoken='))
+          ?.split('=')[1] || '';
+
+        // 如果没有从 cookie 中找到，尝试从 meta 标签获取
+        if (!csrftoken) {
+          const meta = document.querySelector('meta[name="csrf-token"]');
+          if (meta) csrftoken = meta.getAttribute('content') || '';
+        }
+
+        const res = await fetch('https://maimai.cn/api/ent/discover/search?channel=www&data_version=3.0&version=1.0.0', {
+          method: 'POST',
+          headers: {
+            'accept': '*/*',
+            'content-type': 'text/plain;charset=UTF-8',
+            'origin': 'https://maimai.cn',
+            'referer': 'https://maimai.cn/ent/talents/discover/search_v2',
+            'x-csrf-token': csrftoken
+          },
+          credentials: 'include',
+          body: JSON.stringify(requestBody)
+        });
+
+        const data = await res.json();
+
+        // 检查登录状态
+        if (res.status === 401 || res.status === 403 || data.error_code === 20002) {
+          return [{ error: '需要登录！请先在浏览器中访问 maimai.cn 并登录' }];
+        }
+
+        if (data.code !== 200 && data.code !== 0) {
+          return [{ error: data.message || data.error || 'API 请求失败', code: data.code || data.error_code }];
+        }
+
+        // 提取人才列表
+        const talentList = data.data?.list || data.data?.talent_list || data.list || data.talent_list || [];
+
+        if (!talentList || talentList.length === 0) {
+          return [{ error: '未找到匹配的候选人', query: query }];
+        }
+
+        // 映射字段
+        return talentList.map(item => {
+          // 提取学校信息（取第一所）
+          const schoolInfo = item.edu && item.edu.length > 0 ? item.edu[0] : {};
+
+          // 提取所有工作经历的公司并拼接（去重，排除当前公司）
+          const currentCompany = item.company || '';
+          const historicalCompanies = (item.exp || [])
+            .map(e => e.company)
+            .filter(c => c && c.trim() !== '' && c !== currentCompany)
+            .filter((c, i, arr) => arr.indexOf(c) === i)
+            .join(' / ');
+
+          // 工作年限：优先使用 work_time 字段（如"11 年"、"10 年"）
+          const workYear = item.work_time || item.worktime || '';
+
+          // 提取标签/技能（从 tag_list 数组）
+          const tags = (item.tag_list || item.tags || [])
+            .filter(t => t && t.trim() !== '')
+            .join(', ');
+
+          // 提取共同好友数量和名单
+          const mutualFriendsCount = item.friends_cnt || item.common_friends_count || 0;
+          const mutualFriendsList = (item.friends || item.common_friends || [])
+            .map(f => f.name || f.user_name || f)
+            .slice(0, 3)
+            .join(', ');
+
+          return {
+            name: item.name || '',
+            job_title: item.position || item.job_title || '',
+            company: item.company || '',
+            location: (item.province || '') + (item.city ? '·' + item.city : ''),
+            work_year: workYear,
+            school: schoolInfo.school || schoolInfo.hover?.name || '',
+            degree: schoolInfo.sdegree || schoolInfo.hover?.school_level || '',
+            active_status: item.active_state_v2 || item.active_state_v1 || item.active_state || '',
+            age: item.age || '',
+            avatar: item.avatar || '',
+            tags: tags,
+            mutual_friends: mutualFriendsCount > 0 ? `${mutualFriendsCount}人${mutualFriendsList ? ' (' + mutualFriendsList + ')' : ''}` : '',
+            historical_companies: historicalCompanies
+          };
+        });
+      })()
+
+columns: [name, job_title, company, historical_companies, location, work_year, school, degree, active_status, age, tags, mutual_friends]

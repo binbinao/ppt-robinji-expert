@@ -1,0 +1,48 @@
+{
+  "name": "job-search-skill",
+  "version": "1.0.0",
+  "description": "Unified job search skill integrating Liepin, Boss Zhipin, LinkedIn, Maimai, Indeed, and 51job",
+  "main": "scripts/unified_search.py",
+  "bin": {
+    "job-search": "scripts/unified_search.sh"
+  },
+  "scripts": {
+    "check": "scripts/quick_check.sh",
+    "platforms": "python3 scripts/unified_search.py platforms",
+    "search": "python3 scripts/unified_search.py search",
+    "candidates": "python3 scripts/unified_search.py candidates"
+  },
+  "keywords": [
+    "job-search",
+    "recruitment",
+    "liepin",
+    "boss-zhipin",
+    "linkedin",
+    "maimai",
+    "indeed",
+    "51job",
+    "claude-skill",
+    "mcp"
+  ],
+  "author": "Integrated from TerminalSkills + ivanxia1988 + jackwener",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16",
+    "python": ">=3.9"
+  },
+  "dependencies": {
+    "@jackwener/opencli": "^1.8.3"
+  },
+  "vendoredSkills": {
+    "liepin-jobs": {
+      "source": "https://github.com/TerminalSkills/skills/tree/main/skills/liepin-jobs",
+      "license": "MIT",
+      "path": "skills/liepin/"
+    },
+    "opencli-maimai": {
+      "source": "https://github.com/ivanxia1988/opencli-maimai",
+      "license": "MIT",
+      "path": "skills/maimai/"
+    }
+  }
+}

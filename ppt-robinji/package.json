@@ -46,6 +46,11 @@
       "import": "./dist/image/image-service.js",
       "require": "./dist/image/image-service.cjs"
     },
+    "./source": {
+      "types": "./dist/source/index.d.ts",
+      "import": "./dist/source/index.js",
+      "require": "./dist/source/index.cjs"
+    },
     "./converter": {
       "types": "./dist/converter/index.d.ts",
       "import": "./dist/converter/index.js",
@@ -81,6 +86,7 @@
     "test:p1": "tsx scripts/test-p1.ts",
     "test:e2e": "tsx scripts/test-e2e-v2.ts",
     "test:a11y": "tsx scripts/check-a11y.ts",
+    "test:source": "tsx scripts/test-source.ts",
     "demo": "tsx scripts/final-demo.ts",
     "prepublishOnly": "npm run build"
   },
@@ -108,7 +114,12 @@
     "openai": "^4.28.0",
     "dotenv": "^16.4.0",
     "sharp": "^0.33.0",
-    "commander": "^12.0.0"
+    "commander": "^12.0.0",
+    "pdf-parse": "^1.1.1",
+    "mammoth": "^1.8.0"
+  },
+  "optionalDependencies": {
+    "marked": "^12.0.0"
   },
   "peerDependencies": {
     "tsx": "^4.0.0"
