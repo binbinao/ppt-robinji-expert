@@ -94,6 +94,7 @@
     "test:p0-integration": "tsx scripts/test-p0-integration.ts",
     "test:tts": "tsx scripts/test-tts.ts",
     "test:a11y-v2": "tsx scripts/test-a11y.ts",
+    "test:bilingual": "tsx scripts/test-bilingual.ts",
     "demo": "tsx scripts/final-demo.ts",
     "prepublishOnly": "npm run build"
   },
