@@ -35,7 +35,7 @@ session_id: 2026-06-23
 
 ### 范围（本轮交付）
 
-- 14 个 markdown 文件（README + 13 章 + 1 附录）
+- 15 个 markdown 文件（README + 13 章 + 1 附录）
 - 1 个 demo 目录（4 套 tsx 脚本 + 4 份 .pptx 产物）
 - 打磨清单 ≥ 10 条种子项
 
@@ -110,7 +110,7 @@ docs/ppt-robinji-tutorial/
 
 ### 4. 章节导航
 
-14 个文件超链接 + 一句话摘要。
+15 个文件超链接 + 一句话摘要（README + 13 章 + 1 附录）。
 
 ### 5. 维护约定
 
@@ -152,12 +152,18 @@ related: [<其它章节>]
 - **结构对比表**：4 列并排展示 (结构/开篇页/核心页/结尾页)
 - **不跑 AI**：默认 `PROVIDER=mock` 出 4 份 mock PPT；跑真实 AI 时改一个 env 即可
 - **成功标准**：4 份 PPT 都能用 LibreOffice 打开，主标题、页数、模板都符合预期
+- **依赖与运行**：`demos/` 在文档仓、不在 `ppt-robinji/` 包内；运行前需要：
+  1. `cd ppt-robinji && npm run build` 生成 `dist/`
+  2. 在 `ppt-robinji/` 目录运行 `npm link`
+  3. 在 `docs/ppt-robinji-tutorial/demos/` 目录运行 `npm link ppt-robinji`
+  4. `tsx demo-ted.ts` 等命令
+  教程 04 章顶部把"先决条件"写成这 4 步。
 
 ## 完成定义（DoD）
 
 教程"完工"必须满足：
 
-1. **14 个文件齐备**（README + 13 章 + 1 附录），frontmatter 完整
+1. **15 个文件齐备**（README + 13 章 + 1 附录），frontmatter 完整
 2. **3 个 quickstart 可跑通**：在干净环境按步骤执行，每章结尾的"成功标准"全部命中
 3. **04 端到端 demo 跑通**：`demos/demo-{ted,pitch,launch,tutorial}.ts` 都能 `tsx` 运行，生成 4 份 .pptx
 4. **能力速查与源码一致**：05-11 每章的代码片段在 ppt-robinji v2.6.0 上编译通过（无需真实 AI key）
