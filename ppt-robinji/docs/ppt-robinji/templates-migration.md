@@ -121,3 +121,30 @@ or call `getTemplate(id, { strict: true })` directly in code.
 | `npm run cli -- templates validate` | Run zod validation on every template |
 | `tsx scripts/test-template-loader.ts` | Loader unit tests (counts, fallback, strict) |
 | `tsx scripts/test-templates.ts` | E2E: generate a 5-page PPTX for each template |
+
+## Style Families (14 categories, 24 templates)
+
+| Family | Category | Templates | Style intent |
+|---|---|---|---|
+| Editorial | `editorial` | magazine, newspaper | 杂志/报纸感，衬线字体（Playfair Display / Times New Roman），留白艺术 |
+| Brutalist | `brutalist` | mono, poster | 粗野主义，纯黑/原色（红黄蓝绿），等宽字体（Courier New） |
+| Dark Mode | `dark-mode` | tech, noir | 现代深色 UI（VSCode 风格）+ 高对比度（电影感） |
+| Glass | `glass` | frost, prism | 玻璃拟态，半透明/渐变彩色，大圆角（16-20px） |
+| Business | `business` | classic, elegant | 企业汇报，深蓝/灰调 |
+| Tech | `tech` | neon, circuit | 赛博霓虹/终端绿 |
+| Academic | `academic` | classic | 学院派，米白深蓝 |
+| Creative | `creative` | coral, aurora | 暖色撞色/紫蓝渐变 |
+| Education | `education` | fresh | 清新课件，天蓝柠檬黄 |
+| Medical | `medical` | clean | 医疗专业，白青绿 |
+| Finance | `finance` | gold | 金典金融，深绿金色 |
+| Minimal | `minimal` | charcoal, paper | 极简留白 |
+| Dark | `dark` | midnight | 午夜深蓝 |
+| Gradient | `gradient` | ocean, sunset, forest | 海洋/日落/森林渐变 |
+
+**Note on dark-mode vs dark**: They are **separate** categories by design.
+- `dark` is "dark blue + light blue accent" (midnight vibe)
+- `dark-mode` is "modern dark UI + high contrast" (VSCode/film noir)
+
+**Note on glass vs gradient**: They are visually distinct.
+- `gradient` uses `hasGradient=true` (color block gradients)
+- `glass` uses `hasPattern=true` + large `cornerRadius` (frosted/translucent feel)

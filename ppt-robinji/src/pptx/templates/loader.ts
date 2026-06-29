@@ -12,10 +12,15 @@ import financeData from './data/finance.json';
 import minimalData from './data/minimal.json';
 import darkData from './data/dark.json';
 import gradientData from './data/gradient.json';
+import editorialData from './data/editorial.json';
+import brutalistData from './data/brutalist.json';
+import darkModeData from './data/dark-mode.json';
+import glassData from './data/glass.json';
 
 const rawDataArrays: unknown[][] = [
   businessData, techData, academicData, creativeData, educationData,
-  medicalData, financeData, minimalData, darkData, gradientData
+  medicalData, financeData, minimalData, darkData, gradientData,
+  editorialData, brutalistData, darkModeData, glassData
 ];
 
 function loadAndValidate(data: unknown[]): Template[] {

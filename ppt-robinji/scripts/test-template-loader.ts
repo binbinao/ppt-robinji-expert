@@ -11,8 +11,8 @@ function assert(cond: boolean, msg: string) {
 }
 
 // Counts
-assert(ALL_TEMPLATES.length === 16, `ALL_TEMPLATES.length === 16 (got ${ALL_TEMPLATES.length})`);
-assert(Object.keys(TEMPLATE_MAP).length === 16, `TEMPLATE_MAP has 16 entries`);
+assert(ALL_TEMPLATES.length === 24, `ALL_TEMPLATES.length === 24 (got ${ALL_TEMPLATES.length})`);
+assert(Object.keys(TEMPLATE_MAP).length === 16, `TEMPLATE_MAP has 24 entries`);
 
 // Get by id
 const t = getTemplate('business-classic');
@@ -32,8 +32,19 @@ const techTemplates = getTemplatesByCategory('tech');
 assert(techTemplates.length === 2, `getTemplatesByCategory('tech').length === 2 (got ${techTemplates.length})`);
 
 const categories = getCategories();
-assert(categories.length === 10, `getCategories().length === 10 (got ${categories.length})`);
+assert(categories.length === 14, `getCategories().length === 14 (got ${categories.length})`);
 assert(categories.includes('gradient'), `getCategories() includes 'gradient'`);
 
 console.log(`\n\x1b[${fail === 0 ? 32 : 31}mTotal: ${pass} pass, ${fail} fail\x1b[0m`);
+
+// Phase 2: 4 new style families
+assert(getTemplatesByCategory('editorial').length === 2, `\`editorial\` === 2 (got ${getTemplatesByCategory('editorial').length})`);
+assert(getTemplatesByCategory('brutalist').length === 2, `\`brutalist\` === 2`);
+assert(getTemplatesByCategory('dark-mode').length === 2, `\`dark-mode\` === 2`);
+assert(getTemplatesByCategory('glass').length === 2, `\`glass\` === 2`);
+assert(getCategories().includes('editorial'), 'categories includes editorial');
+assert(getCategories().includes('brutalist'), 'categories includes brutalist');
+assert(getCategories().includes('dark-mode'), 'categories includes dark-mode');
+assert(getCategories().includes('glass'), 'categories includes glass');
+
 process.exit(fail > 0 ? 1 : 0);

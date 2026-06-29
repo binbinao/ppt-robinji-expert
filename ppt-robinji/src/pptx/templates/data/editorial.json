@@ -1,0 +1,68 @@
+[
+  {
+    "id": "editorial-magazine",
+    "name": "杂志风",
+    "description": "Vogue 杂志感，大留白 + 衬线字体 + 红色 accent",
+    "category": "editorial",
+    "emoji": "📰",
+    "palette": {
+      "primary": "1A1A1A",
+      "secondary": "F5F1E8",
+      "accent": "C8102E",
+      "text": "1A1A1A",
+      "textSecondary": "4A4A4A",
+      "background": "FAF8F3",
+      "surface": "FFFFFF",
+      "border": "E5E0D5"
+    },
+    "fonts": {
+      "title": "Playfair Display",
+      "body": "Georgia",
+      "mono": "Courier New",
+      "titleSize": 36,
+      "bodySize": 16,
+      "captionSize": 11
+    },
+    "decoration": {
+      "hasGradient": false,
+      "hasPattern": false,
+      "hasShadow": false,
+      "cornerRadius": 0,
+      "titleStyle": "elegant",
+      "contentStyle": "two-column"
+    }
+  },
+  {
+    "id": "editorial-newspaper",
+    "name": "报刊风",
+    "description": "严肃报刊感，黑白灰 + Times New Roman",
+    "category": "editorial",
+    "emoji": "📜",
+    "palette": {
+      "primary": "000000",
+      "secondary": "666666",
+      "accent": "8B0000",
+      "text": "000000",
+      "textSecondary": "333333",
+      "background": "FFFFFF",
+      "surface": "F8F8F8",
+      "border": "CCCCCC"
+    },
+    "fonts": {
+      "title": "Times New Roman",
+      "body": "Times New Roman",
+      "mono": "Courier New",
+      "titleSize": 32,
+      "bodySize": 15,
+      "captionSize": 10
+    },
+    "decoration": {
+      "hasGradient": false,
+      "hasPattern": false,
+      "hasShadow": false,
+      "cornerRadius": 0,
+      "titleStyle": "classic",
+      "contentStyle": "timeline"
+    }
+  }
+]

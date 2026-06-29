@@ -1,0 +1,68 @@
+[
+  {
+    "id": "dark-mode-tech",
+    "name": "代码深色",
+    "description": "VSCode 风格深色，蓝色 accent + Consolas 字体",
+    "category": "dark-mode",
+    "emoji": "🖥️",
+    "palette": {
+      "primary": "1E1E1E",
+      "secondary": "007ACC",
+      "accent": "4EC9B0",
+      "text": "D4D4D4",
+      "textSecondary": "858585",
+      "background": "1E1E1E",
+      "surface": "252526",
+      "border": "3E3E42"
+    },
+    "fonts": {
+      "title": "Consolas",
+      "body": "Consolas",
+      "mono": "Consolas",
+      "titleSize": 28,
+      "bodySize": 16,
+      "captionSize": 12
+    },
+    "decoration": {
+      "hasGradient": false,
+      "hasPattern": false,
+      "hasShadow": false,
+      "cornerRadius": 4,
+      "titleStyle": "modern",
+      "contentStyle": "bullet"
+    }
+  },
+  {
+    "id": "dark-mode-noir",
+    "name": "电影暗黑",
+    "description": "电影感深色，暖色 accent + 高对比度",
+    "category": "dark-mode",
+    "emoji": "🎬",
+    "palette": {
+      "primary": "0A0A0A",
+      "secondary": "FF6B6B",
+      "accent": "FFD93D",
+      "text": "FFFFFF",
+      "textSecondary": "A0A0A0",
+      "background": "0A0A0A",
+      "surface": "1A1A1A",
+      "border": "2A2A2A"
+    },
+    "fonts": {
+      "title": "Georgia",
+      "body": "Helvetica Neue",
+      "mono": "Courier New",
+      "titleSize": 32,
+      "bodySize": 17,
+      "captionSize": 12
+    },
+    "decoration": {
+      "hasGradient": false,
+      "hasPattern": false,
+      "hasShadow": true,
+      "cornerRadius": 2,
+      "titleStyle": "modern",
+      "contentStyle": "card"
+    }
+  }
+]

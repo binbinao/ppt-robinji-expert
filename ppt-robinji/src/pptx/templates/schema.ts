@@ -35,8 +35,9 @@ export const TemplateSchema = z.object({
   name: z.string().min(1),
   description: z.string(),
   category: z.enum([
-    'business', 'tech', 'academic', 'creative', 'education',
-    'medical', 'finance', 'minimal', 'dark', 'gradient'
+    'brutalist', 'business', 'creative', 'dark', 'dark-mode',
+    'education', 'editorial', 'finance', 'glass', 'gradient',
+    'medical', 'minimal', 'tech', 'academic'
   ]),
   palette: ColorPaletteSchema,
   fonts: FontConfigSchema,
