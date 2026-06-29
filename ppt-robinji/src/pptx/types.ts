@@ -35,7 +35,9 @@ export interface Template {
   id: string;
   name: string;
   description: string;
-  category: 'business' | 'tech' | 'academic' | 'creative' | 'education' | 'medical' | 'finance' | 'minimal' | 'dark' | 'gradient';
+  category: 'business' | 'tech' | 'academic' | 'creative' | 'education'
+         | 'medical' | 'finance' | 'minimal' | 'dark' | 'gradient'
+         | 'editorial' | 'brutalist' | 'dark-mode' | 'glass';
   palette: ColorPalette;
   fonts: FontConfig;
   decoration: DecorationConfig;

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "brutalist-mono",
+    "name": "极简粗野",
+    "description": "纯黑白 + 等宽字体 + 厚边框",
+    "category": "brutalist",
+    "emoji": "▓",
+    "palette": {
+      "primary": "000000",
+      "secondary": "FFFFFF",
+      "accent": "FF0000",
+      "text": "FFFFFF",
+      "textSecondary": "CCCCCC",
+      "background": "000000",
+      "surface": "1A1A1A",
+      "border": "FFFFFF"
+    },
+    "fonts": {
+      "title": "Courier New",
+      "body": "Courier New",
+      "mono": "Courier New",
+      "titleSize": 36,
+      "bodySize": 16,
+      "captionSize": 12
+    },
+    "decoration": {
+      "hasGradient": false,
+      "hasPattern": false,
+      "hasShadow": true,
+      "cornerRadius": 0,
+      "titleStyle": "bold",
+      "contentStyle": "bullet"
+    }
+  },
+  {
+    "id": "brutalist-poster",
+    "name": "海报粗野",
+    "description": "粗大字号 + 鲜艳原色 + 厚黑边框",
+    "category": "brutalist",
+    "emoji": "▣",
+    "palette": {
+      "primary": "FFEB00",
+      "secondary": "FF0000",
+      "accent": "0000FF",
+      "text": "000000",
+      "textSecondary": "1A1A1A",
+      "background": "FFFFFF",
+      "surface": "F5F5F5",
+      "border": "000000"
+    },
+    "fonts": {
+      "title": "Impact",
+      "body": "Arial Black",
+      "mono": "Courier New",
+      "titleSize": 44,
+      "bodySize": 18,
+      "captionSize": 13
+    },
+    "decoration": {
+      "hasGradient": false,
+      "hasPattern": true,
+      "hasShadow": true,
+      "cornerRadius": 0,
+      "titleStyle": "bold",
+      "contentStyle": "card"
+    }
+  }
+]

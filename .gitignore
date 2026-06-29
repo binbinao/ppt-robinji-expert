@@ -60,3 +60,7 @@ coverage/
 .codebuddy/*.log
 # Allow skills/ to be tracked
 !.codebuddy/skills/
+
+# ppt-robinji tutorial demos
+docs/ppt-robinji-tutorial/demos/output/*
+!docs/ppt-robinji-tutorial/demos/output/.gitkeep

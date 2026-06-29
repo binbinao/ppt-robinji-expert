@@ -1,0 +1,35 @@
+[
+  {
+    "id": "medical-clean",
+    "name": "医疗专业",
+    "description": "白 + 青绿主调，专业可靠",
+    "category": "medical",
+    "emoji": "🏥",
+    "palette": {
+      "primary": "0077B6",
+      "secondary": "90E0EF",
+      "accent": "00B4D8",
+      "text": "FFFFFF",
+      "textSecondary": "023E8A",
+      "background": "FFFFFF",
+      "surface": "F0F8FF",
+      "border": "CAF0F8"
+    },
+    "fonts": {
+      "title": "Microsoft YaHei",
+      "body": "Microsoft YaHei",
+      "mono": "Consolas",
+      "titleSize": 28,
+      "bodySize": 16,
+      "captionSize": 12
+    },
+    "decoration": {
+      "hasGradient": false,
+      "hasPattern": false,
+      "hasShadow": false,
+      "cornerRadius": 4,
+      "titleStyle": "classic",
+      "contentStyle": "bullet"
+    }
+  }
+]

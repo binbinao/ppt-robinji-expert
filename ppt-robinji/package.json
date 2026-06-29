@@ -1,7 +1,7 @@
 {
   "name": "ppt-robinji",
-  "version": "1.0.0",
-  "description": "Full-stack PPT skill - AI content generation, 14 slide types, 16 templates, 6 image sources, content-aware density, brand customization, and accessibility checks. Powered by Node.js + pptxgenjs.",
+  "version": "2.6.0",
+  "description": "Full-stack PPT skill - AI content generation, 14 slide types, 16 templates, 6 image sources, content-aware density, brand customization, multi-source input, animations, native shapes, TTS audio, A11y, and bilingual support. Powered by Node.js + pptxgenjs.",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -50,6 +50,26 @@
       "types": "./dist/source/index.d.ts",
       "import": "./dist/source/index.js",
       "require": "./dist/source/index.cjs"
+    },
+    "./pptx/animation": {
+      "types": "./dist/pptx/animation/index.d.ts",
+      "import": "./dist/pptx/animation/index.js",
+      "require": "./dist/pptx/animation/index.cjs"
+    },
+    "./pptx/native": {
+      "types": "./dist/pptx/native/index.d.ts",
+      "import": "./dist/pptx/native/index.js",
+      "require": "./dist/pptx/native/index.cjs"
+    },
+    "./audio": {
+      "types": "./dist/audio/index.d.ts",
+      "import": "./dist/audio/index.js",
+      "require": "./dist/audio/index.cjs"
+    },
+    "./i18n": {
+      "types": "./dist/i18n/index.d.ts",
+      "import": "./dist/i18n/index.js",
+      "require": "./dist/i18n/index.cjs"
     },
     "./converter": {
       "types": "./dist/converter/index.d.ts",
@@ -117,14 +137,15 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
-    "pptxgenjs": "^3.12.0",
     "@anthropic-ai/sdk": "^0.24.0",
-    "openai": "^4.28.0",
-    "dotenv": "^16.4.0",
-    "sharp": "^0.33.0",
     "commander": "^12.0.0",
+    "dotenv": "^16.4.0",
+    "mammoth": "^1.8.0",
+    "openai": "^4.28.0",
     "pdf-parse": "^1.1.1",
-    "mammoth": "^1.8.0"
+    "pptxgenjs": "^3.12.0",
+    "sharp": "^0.33.0",
+    "zod": "^3.25.76"
   },
   "optionalDependencies": {
     "marked": "^12.0.0",
@@ -141,9 +162,9 @@
   "devDependencies": {
     "@types/node": "^20.11.0",
     "@types/sharp": "^0.31.1",
-    "typescript": "^5.3.0",
+    "commander": "^12.0.0",
     "tsup": "^8.0.0",
     "tsx": "^4.7.0",
-    "commander": "^12.0.0"
+    "typescript": "^5.3.0"
   }
 }

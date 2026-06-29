@@ -1,0 +1,68 @@
+[
+  {
+    "id": "glass-frost",
+    "name": "磨砂玻璃",
+    "description": "半透明灰白 + 浅蓝 accent + 大圆角",
+    "category": "glass",
+    "emoji": "🪟",
+    "palette": {
+      "primary": "F0F4F8",
+      "secondary": "B8D4E3",
+      "accent": "6FA8DC",
+      "text": "1F3A5F",
+      "textSecondary": "4A6B8A",
+      "background": "E8F0F7",
+      "surface": "FFFFFF",
+      "border": "B8D4E3"
+    },
+    "fonts": {
+      "title": "Inter",
+      "body": "Inter",
+      "mono": "JetBrains Mono",
+      "titleSize": 30,
+      "bodySize": 16,
+      "captionSize": 12
+    },
+    "decoration": {
+      "hasGradient": true,
+      "hasPattern": true,
+      "hasShadow": true,
+      "cornerRadius": 16,
+      "titleStyle": "modern",
+      "contentStyle": "card"
+    }
+  },
+  {
+    "id": "glass-prism",
+    "name": "棱镜玻璃",
+    "description": "渐变彩色（粉/蓝/紫/青）+ 大圆角 + 现代感",
+    "category": "glass",
+    "emoji": "💎",
+    "palette": {
+      "primary": "FF6BCB",
+      "secondary": "6BA8FF",
+      "accent": "B96BFF",
+      "text": "FFFFFF",
+      "textSecondary": "FFE0F5",
+      "background": "6BA8FF",
+      "surface": "FFB6E1",
+      "border": "B96BFF"
+    },
+    "fonts": {
+      "title": "Inter",
+      "body": "Inter",
+      "mono": "JetBrains Mono",
+      "titleSize": 32,
+      "bodySize": 17,
+      "captionSize": 12
+    },
+    "decoration": {
+      "hasGradient": true,
+      "hasPattern": true,
+      "hasShadow": true,
+      "cornerRadius": 20,
+      "titleStyle": "modern",
+      "contentStyle": "card"
+    }
+  }
+]
