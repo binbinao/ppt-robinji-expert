@@ -1,6 +1,7 @@
 import PptxGenJS from 'pptxgenjs';
 import { type PPTContent, type SlideContent } from '../ai/index.js';
 import { getTemplate, type Template, type ColorPalette, type FontConfig, type DecorationConfig } from './templates/index.js';
+import { resolveTemplateId } from './style-mapping.js';
 import { DEFAULT_PALETTES, ALL_TEMPLATES } from './templates/index.js';
 import {
   analyzeContent,
@@ -49,7 +50,12 @@ export class PPTCreator {
     this.pres = new PptxGenJS();
 
     // 优先使用 template，兼容旧的 palette 选项
-    const templateId = options.template || options.palette || 'business-classic';
+    // Phase 3: 优先 options.template > options.style 自动选 > palette (legacy)
+    let templateId = options.template || options.palette;
+    if (!templateId && options.style) {
+      templateId = resolveTemplateId({ style: options.style });
+    }
+    if (!templateId) templateId = 'business-classic';
     this.template = getTemplate(templateId);
 
     // 设置布局

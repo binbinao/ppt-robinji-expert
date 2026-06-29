@@ -7,7 +7,8 @@ import {
   type ProviderConfig,
   type ProviderType
 } from './providers.js';
-import { SPEECH_PROMPT_PREFIX, SPEECH_PROMPT_SUFFIX } from './speech-methodology.js';
+import { SPEECH_PROMPT_PREFIX, SPEECH_PROMPT_SUFFIX, IMAGE_QUERY_RULES } from './speech-methodology.js';
+import { resolveTemplateId, buildStyleContext } from '../pptx/style-mapping.js';
 
 export interface PPTContent {
   title: string;
@@ -146,6 +147,10 @@ export class AIGenerator {
 
     const structureGuide = this.getStructureGuide(structure, slideCount);
 
+    // Phase 3: 解析 style → template id，注入风格上下文
+    const resolvedTemplateId = resolveTemplateId(options);
+    const styleContext = buildStyleContext(resolvedTemplateId);
+
     // 如果提供了源文档内容，注入到 prompt
     let sourceBlock = '';
     if (options.sourceContent) {
@@ -156,10 +161,13 @@ export class AIGenerator {
     }
 
     return `${SPEECH_PROMPT_PREFIX}
+${IMAGE_QUERY_RULES}
 
 Topic: ${options.topic}
 Slides: ${slideCount} (target duration: ${duration} min)
 Style: ${style}
+Template: ${resolvedTemplateId}
+Style-Context: ${styleContext}
 Audience: ${audience}
 Structure: ${structure}
 ${sourceBlock}

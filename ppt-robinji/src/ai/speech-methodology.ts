@@ -78,3 +78,21 @@ export const SPEECH_PROMPT_SUFFIX = `
 5. Final slide should be "cta" type with specific action, not "thank-you"
 
 Generate the JSON now. No preamble, no explanation, just the JSON.`;
+
+export const IMAGE_QUERY_RULES = `
+## imageQuery 详细描述规则（必须遵守）
+
+对于 type 为 image / kpi / timeline 的幻灯片，imageQuery 字段必须是
+**≥25 字的英文视觉描述**，禁止单关键词或 2-3 词短语。
+
+格式要求：
+1. 描述场景主体（如 "a sleek modern conference room with blue neon lighting"）
+2. 描述视觉风格（"editorial magazine style, Playfair Display serif vibe"）
+3. 描述色调倾向（"dark midnight blue with magenta accents"）
+4. 避免抽象词（"professional"、"success"），改用具体意象
+
+错误示例 ❌："conference room"、"business presentation"
+正确示例 ✅："a sleek modern conference room with blue neon lighting,
+editorial magazine style, deep midnight blue tones with magenta accents,
+minimal composition, 16:9 aspect ratio"
+`;

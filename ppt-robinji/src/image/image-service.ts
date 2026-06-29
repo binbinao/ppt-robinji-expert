@@ -68,6 +68,39 @@ export class ImageService {
   }
 
   /**
+   * Phase 5: 带缓存的图片获取 — 命中本地 data URL，未命中下载后缓存
+   */
+  async getOneWithCache(options: ImageSearchOptions): Promise<ImageResult | null> {
+    const q = options.query || '';
+    const key = hashKey(`${q}|${options.style || ''}|${options.width || 0}x${options.height || 0}`);
+    const cached = readCache(key);
+    if (cached) {
+      return {
+        url: `data:image/jpeg;base64,${cached.toString('base64')}`,
+        source: 'cache',
+        width: options.width,
+        height: options.height
+      };
+    }
+    const result = await this.getOne(options);
+    if (!result || !result.url) return result;
+    try {
+      const resp = await fetch(result.url);
+      if (!resp.ok) return result;
+      const buf = Buffer.from(await resp.arrayBuffer());
+      writeCache(key, buf);
+      return {
+        url: `data:image/jpeg;base64,${buf.toString('base64')}`,
+        source: 'cache-fresh',
+        width: options.width,
+        height: options.height
+      };
+    } catch {
+      return result;
+    }
+  }
+
+  /**
    * Picsum - 基于 seed 的随机图，无需 key
    * https://picsum.photos/seed/{seed}/{width}/{height}
    */
@@ -109,7 +142,13 @@ export class ImageService {
     const style = options.style || 'photographic';
 
     // 增强 prompt：加入风格提示
-    const prompt = encodeURIComponent(`${options.query}, ${style} style, high quality, detailed`);
+        // Phase 4: 增强 Pollinations prompt — 注入 imageQuery + style + palette + 质量关键词
+    const parts: string[] = [options.query];
+    parts.push(`${style} style`);
+    const palette = (options as any)?.palette;
+    if (palette?.primary) parts.push(`palette: ${palette.primary}${palette.accent ? ' with ' + palette.accent + ' accents' : ''}`);
+    parts.push('editorial quality, professional composition, 16:9 aspect ratio');
+    const prompt = encodeURIComponent(parts.join(', '));
 
     const results: ImageResult[] = [];
     for (let i = 0; i < count; i++) {
