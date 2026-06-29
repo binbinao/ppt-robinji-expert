@@ -7,7 +7,7 @@ import {
   type ProviderConfig,
   type ProviderType
 } from './providers.js';
-import { SPEECH_PROMPT_PREFIX, SPEECH_PROMPT_SUFFIX } from './speech-methodology.js';
+import { SPEECH_PROMPT_PREFIX, SPEECH_PROMPT_SUFFIX, IMAGE_QUERY_RULES } from './speech-methodology.js';
 import { resolveTemplateId, buildStyleContext } from '../pptx/style-mapping.js';
 
 export interface PPTContent {
@@ -161,6 +161,7 @@ export class AIGenerator {
     }
 
     return `${SPEECH_PROMPT_PREFIX}
+${IMAGE_QUERY_RULES}
 
 Topic: ${options.topic}
 Slides: ${slideCount} (target duration: ${duration} min)
