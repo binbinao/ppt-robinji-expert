@@ -26,8 +26,8 @@ async function main() {
       slides: { type: 'string', short: 's' },
       provider: { type: 'string', short: 'p' },
       output: { type: 'string', short: 'o' },
-      style: { type: 'string', short: 'st' },
-      palette: { type: 'string', short: 'pl' },
+      style: { type: 'string' },
+      palette: { type: 'string', short: '&' },
       from: { type: 'string', short: 'f' },
       help: { type: 'boolean', short: 'h' }
     }

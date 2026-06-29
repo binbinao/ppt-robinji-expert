@@ -305,13 +305,32 @@ ${SPEECH_PROMPT_SUFFIX}`;
       }
     }
 
-    // 2. 提取 JSON 对象（最长匹配）
-    const jsonMatch = text.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
+    // 2. 提取 JSON 对象（bracket-counting，停止在第一个外层 }）
+    let jsonStr = '';
+    const firstBrace = text.indexOf('{');
+    if (firstBrace >= 0) {
+      let depth = 0;
+      let inStr = false;
+      let esc = false;
+      for (let i = firstBrace; i < text.length; i++) {
+        const ch = text[i];
+        if (inStr) {
+          if (esc) { esc = false; continue; }
+          if (ch === '\\') { esc = true; continue; }
+          if (ch === '"') inStr = false;
+        } else {
+          if (ch === '"') inStr = true;
+          else if (ch === '{') depth++;
+          else if (ch === '}') {
+            depth--;
+            if (depth === 0) { jsonStr = text.substring(firstBrace, i + 1); break; }
+          }
+        }
+      }
+    }
+    if (!jsonStr) {
       throw new Error('No JSON found in response');
     }
-
-    let jsonStr = jsonMatch[0];
 
     // 3. 尝试直接解析
     try {
