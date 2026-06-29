@@ -109,7 +109,13 @@ export class ImageService {
     const style = options.style || 'photographic';
 
     // 增强 prompt：加入风格提示
-    const prompt = encodeURIComponent(`${options.query}, ${style} style, high quality, detailed`);
+        // Phase 4: 增强 Pollinations prompt — 注入 imageQuery + style + palette + 质量关键词
+    const parts: string[] = [options.query];
+    parts.push(`${style} style`);
+    const palette = (options as any)?.palette;
+    if (palette?.primary) parts.push(`palette: ${palette.primary}${palette.accent ? ' with ' + palette.accent + ' accents' : ''}`);
+    parts.push('editorial quality, professional composition, 16:9 aspect ratio');
+    const prompt = encodeURIComponent(parts.join(', '));
 
     const results: ImageResult[] = [];
     for (let i = 0; i < count; i++) {
