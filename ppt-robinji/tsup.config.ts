@@ -14,9 +14,16 @@ export default defineConfig({
     'pptx/creator': 'src/pptx/creator.ts',
     'image/index': 'src/image/index.ts',
     'image/image-service': 'src/image/image-service.ts',
-    'converter/index': 'src/converter/index.ts'
+    'converter/index': 'src/converter/index.ts',
+    // v2.1-v2.6 新增模块
+    'source/index': 'src/source/index.ts',
+    'pptx/animation/index': 'src/pptx/animation/index.ts',
+    'pptx/native/index': 'src/pptx/native/index.ts',
+    'audio/index': 'src/audio/index.ts',
+    'i18n/index': 'src/i18n/index.ts'
   },
   format: ['esm', 'cjs'],
+  loader: { '.json': 'json' },  // Phase 1: inline JSON data at build time
   dts: false,        // 跳过 DTS 生成（pptxgenjs 类型问题；用户用 JSDoc 推断）
   sourcemap: true,
   clean: true,

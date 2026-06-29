@@ -268,7 +268,35 @@ program.action(() => {
   program.help();
 });
 
+// ========================================================
+// templates validate — Phase 1 新增（在 parseAsync 之前注册）
+// ========================================================
+import { TemplateSchema as _TemplateSchema } from './pptx/templates/index.js';
+program
+  .command('validate-templates')
+  .description('Validate all templates against zod schema (Phase 1)')
+  .action(() => {
+    log.title('Template Validation');
+    let pass = 0, fail = 0;
+    for (const t of ALL_TEMPLATES) {
+      const result = _TemplateSchema.safeParse(t);
+      if (result.success) {
+        log.success(`${t.id}`);
+        pass++;
+      } else {
+        log.error(`${t.id}`);
+        for (const issue of result.error.issues) {
+          console.log(`     ${c.gray}${issue.path.join('.')}: ${issue.message}${c.reset}`);
+        }
+        fail++;
+      }
+    }
+    console.log(`\n${c.dim}Total: ${pass} pass, ${fail} fail${c.reset}`);
+    process.exit(fail > 0 ? 1 : 0);
+  });
+
 program.parseAsync(process.argv).catch(err => {
   log.error(err.message);
   process.exit(1);
 });
+

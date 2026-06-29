@@ -15,7 +15,7 @@
  */
 
 import type { PPTContent, SlideContent } from '../ai/generator.js';
-import type { ColorPalette } from './templates/types.js';
+import type { ColorPalette } from './templates/schema.js';
 
 // ============ 类型定义 ============
 

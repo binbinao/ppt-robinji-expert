@@ -10,7 +10,7 @@
  * - 内容密集：小字 + 紧凑排版 + 分栏/网格
  */
 
-import type { ColorPalette, FontConfig } from './templates/types.js';
+import type { ColorPalette, FontConfig } from './templates/schema.js';
 
 export type ContentDensity = 'sparse' | 'normal' | 'dense' | 'overflow';
 
