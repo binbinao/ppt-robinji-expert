@@ -68,6 +68,39 @@ export class ImageService {
   }
 
   /**
+   * Phase 5: 带缓存的图片获取 — 命中本地 data URL，未命中下载后缓存
+   */
+  async getOneWithCache(options: ImageSearchOptions): Promise<ImageResult | null> {
+    const q = options.query || '';
+    const key = hashKey(`${q}|${options.style || ''}|${options.width || 0}x${options.height || 0}`);
+    const cached = readCache(key);
+    if (cached) {
+      return {
+        url: `data:image/jpeg;base64,${cached.toString('base64')}`,
+        source: 'cache',
+        width: options.width,
+        height: options.height
+      };
+    }
+    const result = await this.getOne(options);
+    if (!result || !result.url) return result;
+    try {
+      const resp = await fetch(result.url);
+      if (!resp.ok) return result;
+      const buf = Buffer.from(await resp.arrayBuffer());
+      writeCache(key, buf);
+      return {
+        url: `data:image/jpeg;base64,${buf.toString('base64')}`,
+        source: 'cache-fresh',
+        width: options.width,
+        height: options.height
+      };
+    } catch {
+      return result;
+    }
+  }
+
+  /**
    * Picsum - 基于 seed 的随机图，无需 key
    * https://picsum.photos/seed/{seed}/{width}/{height}
    */
